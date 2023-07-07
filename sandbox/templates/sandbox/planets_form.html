@@ -1,0 +1,27 @@
+<!-- Recieves page title, confirmation_message, fave_bands_form variable as parameter from views.basic_form -->
+<!-- Gets Input from user and sends form data to request.POST which is extracted by views.fave_bands_form_action -->
+
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>sandbox: 
+       
+                {{planet_header}} 
+          
+        </title>
+    </head>
+    <body>
+       <main> 
+            <div >
+                <h1>{{planet_header}}: {{errors}}</h1>
+                <form autocomplete='on' action="../planets/" method="POST">
+                    {% csrf_token %}
+                    {{planet_form.as_p}}     
+                    <input type="submit" value="GO">
+                </form>
+            </div>
+        </main>
+    </body>
+</html>

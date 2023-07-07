@@ -1,0 +1,25 @@
+<!-- Recieves confirmation_message, default_value variable as parameter from views.basic_form -->
+<!-- Gets Input from user and sends form data to request.POST which is extracted by views.basic_form_action -->
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>sandbox: basic forms</title>
+    </head>
+    <body>
+        <div >
+            <h1>{{confirmation_message}}</h1>
+            <form action="../basic_form_action/" method="POST">
+                {% csrf_token %}
+                <label for="name_in">Name:</label>
+                <input  id="basic_form_input_1" 
+                        type="text" 
+                        placeholder_text="form input 1"
+
+                        name = "name_in" 
+                        value = "{{default_value}}">
+                <input type="submit" value="OK">
+            </form>
+        </div>
+    </body>
+</html>

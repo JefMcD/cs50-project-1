@@ -1,0 +1,113 @@
+<!-- Recieves -->
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>sandbox: regular expresssions</title>
+    </head>
+    <body>
+        <div >
+            <h1>{{title}}</h1>
+            <a href="https://docs.python.org/3/howto/regex.html">https://docs.python.org/3/howto/regex.html</a>
+            <a href="https://www.youtube.com/watch?v=V_BozMwoYe4">regex tutorial</a>
+            <div>
+                <br>regular expressions are used to operate on strings
+            </div>
+            <div>
+                <br>Metacharacters usedin regex =>  <b> . ^ $ * + ? { } [ ] \ | ( )</b>
+            </div>
+
+            <div>   
+                character classes are groupes using []<br>
+                [abc] is characters a,b,c<br>
+                [a-c] is also characters a,b,c<br>
+                [abc$] is characters a,b,c,$ - metacharacters lose their special power inside a class groupe
+                 <br>
+                [^abc] is not a,b,c - anywhere after the first position it loses its special power<br>
+            </div>
+            <br>
+            <div>
+                The \ metacharacters<br>
+                \$, \\, \? etc - escapes the metacharacters special powers so it can be matched as an ordinary character<br>
+                <br>
+                \d - any decimal digit; this is equivalent to the class [0-9].<br>
+                \D - Matches any non-digit character; this is equivalent to the class [^0-9].<br>
+                <br>
+                \s - Matches any whitespace character; this is equivalent to the class [ \t\n\r\f\v].<br>
+                \S - Matches any non-whitespace character; this is equivalent to the class [^ \t\n\r\f\v].<br>
+                <br>
+                \w - Matches any alphanumeric character; this is equivalent to the class [a-zA-Z0-9_].<br>
+                \W - Matches any non-alphanumeric character; this is equivalent to the class [^a-zA-Z0-9_].<br>
+            </div>
+            <br>
+            <div>These sequences are often included inside a class<br>
+                [\s,.'"] - matches any whitespace , . ' "
+                [\dab] - matched any number also a and b
+                [\w01] - matches any character also 0 and 1
+            </div>
+            <br>
+            <div>
+                Metacharacter => . <br>
+                The . matches anything except a newline character<br>
+                <br>
+                This can be altered to include anything including the newline by using<br>
+                re.DOTALL<br>
+                then the . will match the newline as well<br>
+            </div>
+            <br>
+            <div>
+                the *  +  ? metacharacter<br>
+                <br>
+                [ca*t] - matches 'ct' 'cat' 'caaat' the a is matched 0 or more timesetc<br>
+                [ca+t] - matches c then at least one a then t 'cat' 'caat' etc<br>
+                [ca?t] - matches 'cat' 'ct' makes the a an optional character 0 or 1 times<br>
+            </div>
+            <br>
+            <div>
+                {m,n} quantifier<br>
+                [ca{1,3}n] - matches 'cat', 'caat', 'caaat' <br>
+                matches at least m and at most n occurences<br>
+                <br>
+                <br>
+                ommittinf m or n<br>
+                {m,} - n defaults to infinity<br>
+                {,n} - m defaults to 0<br>
+            </div>
+            <br>
+            <div>
+                <h1>Using Regular Expressions</h1>
+                <h2>Compiling patterns</h2>
+                <br>
+            </div>
+            <br>
+            <div>
+                Regular expressions are compiled into pattern objects, 
+                which have methods for various operations such as searching for pattern matches or performing string substitutions<br>
+                <br>
+                pattern = re.compile('ab*', re.IGNORECASE)<br>
+                this creates a regex pattern which matches any string beggining with 'ab' it Ignores the case sensitivity
+            </div>
+            <br>
+            <div>
+                <br>start_match = {{start_match}}
+                <br>chuck_match = {{chuck_match}}
+                <br>pattern_search = {{pattern_search}}
+                <br>pattern_findall = {{pattern_findall}}
+            </div>
+            <br>
+            <div>
+                <br>header_tag_html => {{header_tag_html}}
+                <br>bold_tag_html => {{bold_tag_html}}
+                <br>tag => {{tag}}
+            </div>
+            <br>
+            <div>
+            </div>
+            <br>
+            <div>
+            </div>
+            <br>
+
+        </div>
+    </body>
+</html>

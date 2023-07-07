@@ -1,0 +1,42 @@
+<!-- Recieves page title, confirmation_message, fave_bands_form variable as parameter from views.basic_form -->
+<!-- Gets Input from user and sends form data to request.POST which is extracted by views.fave_bands_form_action -->
+
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>sandbox: 
+       
+                {{comic_form_title}} 
+          
+        </title>
+    </head>
+    <body>
+       <main> 
+            <div >
+                <h1>{{comic_form_title}}</h1>
+                <form autocomplete='on' action="../fave_bands/" method="POST">
+                    {% csrf_token %}
+                      
+                        {{comic_form.as_p}}
+                       
+                        <input type="submit" value="GO">
+                </form>
+            </div>
+
+            <input list="artists">
+            <datalist id="artists">
+                <option value="Moebius">
+                <option value="Druilet">
+                <option value="Caza">
+                <option value="Crumb">
+                <option value="Wilson">
+            </datalist>
+
+            <div>
+                {{validation_result}}
+            </div>
+        </main>
+    </body>
+</html>

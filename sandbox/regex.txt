@@ -1,0 +1,19 @@
+This question relates to markdown and regular expressions in python
+The following text block contained between double quotes is markdown code;
+"
+**Bold**
+**Bold** then **Bold**
+**Bold** then **Bold** then **Bold**
+Some words**BOLD WORDS**, then normal
+"
+
+What is the regex to match the first set of '**' tags immediately preceding the word 'Bold'
+
+first pair
+'(?<!\*)\*\*(?=\w)'
+
+second pair
+'(?<=\w)\*\*(?!\*)'
+
+
+

@@ -1,0 +1,281 @@
+<!-- Recieves filenames variable as parameter from views.list_edit-->
+<!DOCTYPE html>
+
+<link rel="stylesheet" href="../../../../static/basic_style.css?v0.5">
+
+<html lang="en">
+<head>
+    <title>sandbox: bones_urls</title>
+</head>
+<body>
+    <main>
+        <div class="box" >
+            <h1>Bones URL's</h1>
+            <div class="border-box">Playing around with URL's and paths<br />
+                <a href ="https://docs.djangoproject.com/en/4.1/topics/http/urls/">Django URL's</a>
+            </div>
+        </div>
+        <div class="box">
+                <h2>urls.py</h2>
+                <div class="border-box">The urls.py file contains a list of paths that a web user can be sent to:<br />
+                    The most basic format is:-
+                            <div class="border-box">
+                                app_name = 'bones_app'<br />
+                                urlpatterns = [<br />
+                                &emsp;path('bones/', views.bones_func, name='bones_page')<br />
+                                ] <br />
+                                <!--- path("<str:pathname\>", views.user_view, name='user_view')-->
+                            </div>
+                            <ul>
+                                <li>The url_name is typed in to a browser ie http://127.0.0.1:8000/sandbox/bones/</li>
+                                <li>Django loads the views file and executes the view-function</li>
+                                <li>The name is a way to uniquely reference this path</li>
+                                <li>urlpatterns should be a sequence of path() and/or re_path() instances.</li>
+                            </ul>
+                </div>
+        </div>
+        <div class="box">
+                    <h2>path names containing dynamic content</h2>
+
+                    <h4>for example</h4>
+                    <div class="border-box">the urls.py file contains the path<br />
+                        <h4>path('bones/&#60;str:username&#62;', views.bones_users, name='bones_users')</h4>
+                        This will capture whatever is typed in after 'bones/' and place it in the variable username<br />
+                        The views function bones_users receives this as a parameter and then renders a page which displays this variable<br />
+                    </div>
+                    <div class="border-box">
+                        Using angle brackets “captures” part of the URL and sends it as a keyword argument to the view function<br /><br />
+                        <!-- path('bones/<str:username>/<str:user_id>', views.bones_users, name='bones_users') -->
+                        so this works as so:-<br />
+                        <h4>path('bones/&#60;str:username&#62;/&#60;int:user_id&#62;', views.bones_users, name='bones_users')</h4>
+                        Then in the views function you can pick up these variables as parameters<br /><br />
+                        def bones_users(request, <b>username, user_id</b>):<br />
+                        &emsp;return render(request, 'sandbox/bones_users.html', {<br />
+                            &emsp;&emsp;'username':username,<br />
+                            &emsp;&emsp;'user_id': user_id<br />
+                        })<br />
+                        #end bones_users<br />
+                    </div>
+                    <div class="box">
+                        There is also a data type which is unique to Django called a slug,<br />
+                        A slug is a throwback to the origins of Django where the devs often found slugs on the shrooms they were smokin<br /><br />
+                        A slug is a string expression like 'here-is-an-example-of-a-slug'<br />
+                        <b>path('articles/&#60;int:year&#62;/&#60;int:month&#62;/&#60;slug:slug&#62;/', views.article_detail)</b><br />
+                    <!--- path('articles/<int:year>/<int:month>/<slug:slug>/', views.article_detail) -->
+                        
+                        There is no forward slash. ie its bones/ not /bones/ 
+                    </div>
+                    <div class="border-box">
+                        <h2>Path converters</h2>
+                        The following path converters are available:<br />
+                        <ul>
+                            <li>str - Matches any non-empty string, excluding the path separator, '/'. This is the default if a converter isn’t included in the expression.</li>
+                            <li>int - Matches zero or any positive integer. Returns an int.</li>
+                            <li>slug - Matches any slug string consisting of ASCII letters or numbers, plus the hyphen and underscore characters. For example, building-your-1st-django-site.</li>
+                            <li>uuid - Matches a formatted UUID. To prevent multiple URLs from mapping to the same page, dashes must be included and letters must be lowercase. For example, 075194d3-6885-417e-a8a8-6c931e272f00. Returns a UUID instance.</li>
+                            <li>path - Matches any non-empty string, including the path separator, '/'. This allows you to match against a complete URL path rather than a segment of a URL path as with str.</li>
+                        </ul>
+                        iterable type like tuple, set, list and dict are not possible
+                        <h3>Registering custom path converters</h3>
+                        For more complex matching requirements, you can define your own path converters.<br />
+                        I dont want to go there right now but its described in <a href ="https://docs.djangoproject.com/en/4.1/topics/http/urls/">Django URL's</a>
+                    
+                        <h3>Using regular expressions</h3>
+                        If the paths and converters syntax isn’t sufficient for defining your URL patterns, you can also use regular expressions. <br />
+                        To do so, use re_path() instead of path(). see <a href ="https://docs.djangoproject.com/en/4.1/topics/http/urls/">Django URL's</a>
+                    </div>
+                    <div class="border-box">
+                        The render() function takes the request object as its first argument, a template name as its second argument 
+                        and a dictionary as its optional third argument. It returns an HttpResponse object of the given template 
+                        rendered with the given context.
+                    </div>
+                    <div class="border-box">
+                        app_name<br />
+                        will namespace the paths so that they will not conflict with pathnames inside other modules<br />
+                    </div>
+
+                    <h2>Passing Extra Arguments</h2>
+                    The path() function can take an optional third argument which should be a dictionary of extra keyword arguments to pass to the view function.<br />
+                    
+                    <div>
+                        For example:<br />
+                        <div border-box>
+                        from django.urls import path<br />
+                        from . import views<br />
+                        <br />
+                        urlpatterns = [<br />
+                            &emsp;path('blog/&#60;int:year&#62;/', views.year_archive, {'foo': 'bar'}),<br />
+                        ]
+                        </div>
+                        In this example, for a request to /blog/2005/, Django will call views.year_archive(request, year=2005, foo='bar').
+                    </div>
+
+
+        </div>
+
+        <div class="box">
+            <h1>Reverse URL Resolution!</h1>
+            <div>
+                
+                <div>A common need when working on a Django project is the possibility to obtain URLs in their final forms either for embedding in generated content (views and assets URLs, URLs shown to the user, etc.) or for handling of the navigation flow on the server side (redirections, etc.)
+                </div>
+                <div>It is strongly desirable to avoid hard-coding these URLs (a laborious, non-scalable and error-prone strategy). 
+                    Equally dangerous is devising ad-hoc mechanisms to generate URLs that are parallel to the design described by 
+                    the URLconf, which can result in the production of URLs that become stale over time.
+                    <br /><br />
+                    <em>(An example of this is the absolute links to Django within this page such as this -> <a href="https://docs.djangoproject.com/en/4.1/topics/http/urls/#reverse-resolution-of-urls">Django URL's</a><br />
+                    The Django way of linking these bones is to reference a path in the URLConf file which executes a funtion that renders that page. Possible a function specifically to open a new window and redirect to a given URL?</em>
+                </div>
+                <div>In other words, what’s needed is a DRY mechanism. Among other advantages it would allow evolution of the URL design without having to go over all the project source code to search and replace outdated URLs.
+                </div>
+                <div>The primary piece of information we have available to get a URL is an identification (e.g. the name) of the view in charge of handling it. Other pieces of information that necessarily must participate in the lookup of the right URL are the types (positional, keyword) and values of the view arguments.
+                </div>
+                <div>Django provides a solution such that the URL mapper is the only repository of the URL design. You feed it with your URLconf and then it can be used in both directions:
+                </div>
+                <div>Starting with a URL requested by the user/browser, it calls the right Django view providing any arguments it might need with their values as extracted from the URL.
+                Starting with the identification of the corresponding Django view plus the values of arguments that would be passed to it, obtain the associated URL.
+                The first one is the usage we’ve been discussing in the previous sections. The second one is what is known as reverse resolution of URLs, reverse URL matching, reverse URL lookup, or simply URL reversing.
+                </div>
+                <div>
+                    <ul>Django provides tools for performing URL reversing that match the different layers where URLs are needed:
+                        <li>In <b>Templates</b>: Using the <b>url</b> template tag.</li>
+                        <li>In <b>Views</b> (Python code): Using the <b>reverse()</b> function.</li>
+                        <li>In higher level code related to handling of URLs of Django model instances: The get_absolute_url() method.</li>
+                    </ul>
+                </div> 
+                <div>
+   
+                    <h3> Calling Path from Template</h3>
+                    A path can be called from any template using the <b>url</b> tag:<br>
+                    For example: in the URLConf a path is defined:<br>
+                    <b>path('bones/&#60;str:username&#62;/&#60;str:user_id&#62;', views.bones_users, name='bones_users')</b><br>
+                    this calls the view bones_users which renders bones_users.html <br>
+                    - def bones_users(request, username, user_id):
+                    <br><br>
+                    By referencing the name of this path from inside the template it can be called thus:
+                    <!---<a href="{..% url 'news-year-archive' 2012 %..}">2012 Archive</a><br>
+                    {# Or with the year in a template context variable: #}<br>
+                    https://www.htmlsymbols.xyz/ascii-symbols/ascii-table-->
+                    <ul>
+                        <li>
+                            &#60;a href="&#123;% &nbsp;url &nbsp; 'bones_users' &nbsp; 'pepe' &nbsp; %&#125;"&#62;&#123;&#123; comic &#125;&#125;&#60;/a&#62;
+                        </li>
+                        <li>
+                            &#60;a href="&#123;% &nbsp;url &nbsp;'bones_users' &nbsp;'jose' &nbsp;%&#125;"&#62;Jose Comix&#60;/a&#62;<br>
+                        </li>
+                        <li>
+                            &#60;a href="&#123;%&nbsp;&nbsp; url&nbsp;&nbsp; 'bones_app:bones_users'&nbsp;&nbsp; 'jose'&nbsp;&nbsp; %&#125;"&#62;Jose Comix&#60;/a&#62;<br>
+                        </li>
+                    </ul>
+                    in general - url 'path name' variables<br>
+                    So any dynamic values for the variables can be inserted into the path via the variables parameter<br>
+                    
+                </div>
+
+                <div>
+                    <h2>reverse</h2>
+                    <h3>Calling path from the Views Function ie Python</h3>
+                    reverse() performs the same function as the url tag in the template but works in the python views<br>
+                    The python script in the view imports the function HttpResponseRedirect and reverse to achieve this magic
+                    
+                        <div class="border-box">
+                            from django.http import HttpResponseRedirect<br>
+                            from django.urls import reverse<br><br>
+                            def redirect_to_year(request):<br>
+                            &emsp;year = 2006<br>
+                            &emsp;return HttpResponseRedirect(reverse('news-year-archive', args=(year,)))<br>
+                        </div>
+                        <div>
+                            I suppose redirects like this must be intermediary stages, ultimately there needs 
+                            to be a view which renders the html template and this will redirect to that
+                        </div>
+                </div>
+
+                <div>
+                    In some scenarios where views are of a generic nature, a many-to-one relationship might exist between URLs and views. 
+                    For these cases the view name isn’t a good enough identifier for it when comes the time of reversing URLs. 
+                    Read the next section to know about the solution Django provides for this.<br>
+
+                </div>
+
+            </div>
+        </div>
+        <div>
+            { &#123;   } &#125;
+            <  &#60;              > &#62;
+            &nbsp;
+            <br>
+            <b>&#60;a href="&#123;%&nbsp;&nbsp; url&nbsp;&nbsp; 'bones_app:bones_users'&nbsp;&nbsp; 'jose'&nbsp;&nbsp; %&#125;"&#62;Jose Comix&#60;/a&#62;<br></b>
+
+            <h3>Calling a target template using a url path</h3>
+            This link will call a template using a url path <br>
+            <b>&#60;a href="&#123;% &nbsp;url &nbsp;&nbsp;'hit_target'&nbsp; %&#125;"&#62;<br></b>
+            -> <a href="{% url 'hit_target' %}">Basic url using path</a> <-
+
+
+            <h3>Calling a target template using a url path and a parameter</h3>
+            <b>&#60;a href="&#123;%&nbsp; &nbsp;url&nbsp;&nbsp; 'hit_moving_target' &nbsp;&nbsp;'femur' &nbsp;%&#125;"&#62;<br></b>
+            -><a href="{% url 'hit_moving_target' 'femur' %}">url path with parameter = 'Femur'</a><-
+            <div>
+                The code for doing this is embedded in the bones.html file and references the URLConf paths to findthe target
+            </div>
+        </div>
+        <div>
+            <h3>Calling a target template using python views redirect</h3>
+            This link will;<br>
+            load a url path - process_target <br>
+            This will call a views function views.process_target<br>
+            Then that will perform some processing and redirect to the target<br>
+            <b>&#60;a href="&#123;% &nbsp;url &nbsp;&nbsp;'process_target' &nbsp;&nbsp;%&#125;"&#62;<br></b>
+            -> <a href="{% url 'process_target' %}">Find target using views redirect</a> <-
+            <br>
+            <h3>Find target using views redirect and a parameter</h3>
+            <b>&#60; a href="&#123;%&nbsp; url &nbsp;&nbsp;'process_moving_target' &nbsp;&nbsp;'Knuckle' &nbsp;%&#125;" &#62; </b><br>
+            -><a href="{% url 'process_moving_target' 'Knuckle' %}">Find target using views redirect with parameter = 'Knuckle'</a><-
+            <div>
+                The code for doing this is embedded in the bones.html file and references the URLConf paths to findthe target
+            </div>
+        </div>
+
+        <div class="box">
+            <h2>paths and urls in the views.py file</h2>
+            <div class="border-box">
+                The views file will execute a function and then have several options for direct the user to a path
+                depending on the user interaction.
+            </div>
+                <ul>
+                    <li>Render: literal url like 'bones/index.html'</li>
+                    <li>Render: dynamic url like 'bones/{user}/{user_content}.html'</li>
+                    <li>Render: literal Path like 'bones_app:index'</li>
+                    <li>Render: Dynamic path like 'bones{mod}:{user}:{x}</li>
+                    <li>ReDirect: literal url like 'bones/index.html'</li>
+                    <li>ReDirect: dynamic url like 'bones/{user}/{user_content}.html'</li>
+                    <li>ReDirect: literal Path like 'bones_app:index'</li>
+                    <li>ReDirect: Dynamic path like 'bones{mod}:{user}:{x}</li>
+                </ul>
+        </div>
+
+
+        <h2>Views: Render: <b>Literal URL</b></h2>
+
+
+
+        <div class="border-box">
+            <h2>paths and urls in the Templates files</h2>
+            <div class="border-box">
+                Once the page is rendered the links on the html page have several option in how they are writter.
+            </div>
+                <ul>
+                    <li>Render: literal url like 'bones/index.html'</li>
+                    <li>Render: dynamic url like 'bones/{user}/{user_content}.html'</li>
+                    <li>Render: literal Path like 'bones_app:index'</li>
+                    <li>Render: Dynamic path like 'bones{mod}:{user}:{x}</li>
+                    <li>ReDirect: literal url like 'bones/index.html'</li>
+                    <li>ReDirect: dynamic url like 'bones/{user}/{user_content}.html'</li>
+                    <li>ReDirect: literal Path like 'bones_app:index'</li>
+                    <li>ReDirect: Dynamic path like 'bones{mod}:{user}:{x}</li>
+                </ul>
+        </div>
+    </main>
+</body>
+</html>

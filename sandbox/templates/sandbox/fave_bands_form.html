@@ -1,0 +1,39 @@
+<!-- Recieves page title, confirmation_message, fave_bands_form variable as parameter from views.basic_form -->
+<!-- Gets Input from user and sends form data to request.POST which is extracted by views.fave_bands_form_action -->
+
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>sandbox: 
+       
+                {{title}} 
+          
+        </title>
+    </head>
+    <body>
+        <div >
+            <h1>{{confirmation_message}}</h1>
+            <form action="../fave_bands/" method="POST">
+                {% csrf_token %}
+                    <table>
+                    {{bands_form}}
+                    </table>
+                    {{singer}}
+                    <input type="submit" value="GO">
+            </form>
+        </div>
+        <div>Heavy Metal: {{heavy_metal}}</div>
+        <div>Funk: {{funk}}</div>
+        <div>Indie: {{indie}}</div>
+        <input list="browsers">
+        <datalist id="browsers">
+          <option value="Internet Explorer">
+          <option value="Firefox">
+          <option value="Chrome">
+          <option value="Opera">
+          <option value="Safari">
+        </datalist>
+    </body>
+</html>

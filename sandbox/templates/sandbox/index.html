@@ -1,0 +1,26 @@
+<!-- Recieves filenames variable as parameter from views.list_edit-->
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>sandbox</title>
+    </head>
+    <body>
+        <div >
+            <h1>Wiki Files</h1>
+            <h2>{{wiki_files}}</h2>
+            <h1>Wiki Dirs</h1>
+            <h2>{{wiki_dirs}}</h2>
+            <h1>Filenames</h1>
+            <h2>{{filenames}}</h2>
+            {% for file in filenames %}
+                <div> {{file}} </div>
+            {% endfor %}
+            <h1>Liked Fruits</h1>
+            <h2>{{liked_fruits}}</h2>
+            <h1>Disiked Fruits</h1>
+            <h2>{{disliked_fruits}}</h2>
+            
+        </div>
+    </body>
+</html>

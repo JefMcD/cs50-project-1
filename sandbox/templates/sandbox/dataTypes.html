@@ -1,0 +1,20 @@
+
+<!-- Recieves play_tuple, name, brand, strings, price from sandbox/views.tuple_edits-->
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>sandbox</title>
+    </head>
+    <body>
+        <div >
+            <h1>Tuples</h1>
+            <h2>play_tuple {{play_tuple}}</h2>
+            {% for instrument in play_tuple %}
+                    <h2>instrument: {{instrument}}</h2>
+            {% endfor %}
+            <h1>Bob plays the {{brand}} {{name}} {{strings}} and it cost £{{price}}</h1>
+            
+        </div>
+    </body>
+</html>

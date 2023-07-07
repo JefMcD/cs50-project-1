@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title> {% block title %}
+                {% endblock %}
+        </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'encyclopedia/styles.css' %}?v2.9" rel="stylesheet">
+    </head>
+    <body>
+        <div class="row">
+
+
+            <div class="sidebar col-xl-2 col-lg-3 col-md-4">
+
+                <div class="sidebar_contents">
+                    <h1>Waki</h1>
+
+                    <div class='search_form_box'>
+                        <form name='wiki_search_form', id='wiki_search_form_id', action="{% url 'encyclopedia:process_search' %}", method='POST'>
+                            {{search_form}}
+                            <div class="form_button">
+                                <input type="submit" class="search-btn" name = "search-button" value="Go!">
+                            </div>
+                            {% csrf_token %}
+                        </form>
+                    </div>
+                    
+                    <div class='sidebar_nav'>
+                        <div>
+                            <a href="{% url 'encyclopedia:index' %}">Home</a>
+                        </div>
+                        <div>
+                            <a href="{% url 'encyclopedia:new_wiki_form' %}">New Page</a>
+                        </div>
+                        <div>
+                            <a href="{% url 'encyclopedia:random_wiki' %}">Random</a>
+                        </div>
+                    </div>
+      
+                    {% block nav %}
+                    {% endblock %}
+
+                </div>
+
+            </div>
+
+
+            <div class="main col-xl-10 col-lg-9 col-md-8">
+                <div class='right-panel'>
+                    <div class='wikipage_header'>
+                        <h2>Jef McD Project 1: Wiki</h2>
+                    </div>
+                    <div class='wiki_page'>
+                        {% block body %}
+                        {% endblock %}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </body>
+</html>

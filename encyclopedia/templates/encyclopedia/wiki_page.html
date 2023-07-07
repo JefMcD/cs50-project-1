@@ -1,0 +1,26 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Wiki Page: {{wiki_header|safe}}
+{% endblock %}
+
+{% block body %}
+
+    <!-- 
+        open the corrosponding wiki file
+        convert markdown to html
+        render the html wiki_page
+    -->
+    <div class='wiki_general'>
+        <div>{{wiki_html|safe}}</div>
+        <br>
+    </div>
+    <div class="edit_btn_flexbox">
+        <div class='edit_wiki_btn'>
+            <a href="{% url 'encyclopedia:edit_wiki' wiki_page %}">Edit Page</a>
+        </div>
+    </div>
+
+    
+
+{% endblock %}

@@ -1,0 +1,58 @@
+#Markdown
+
+Markdown special characters are '#', '*', '-', #'+', '\', '[', ']', '(', ')'
+Special characters can be escaped using the '\'
+Deal with that once the main functionality is done
+
+#Header1# 		= <h1></h1>
+##Header2##    	= <h2></h2>
+###Header3### 	= <h3></h3>
+####Header4####  	= <h4></h4>
+#####Header5##### 	= <h5></h5>
+regex looking for (# any string #) and replace with (<h1> any string </h1>)
+regex looking for (## any string ##) and replace with (<h2> any string </h2>)
+[#\w#]
+[##\w##]
+etc
+etc
+
+
+
+**Boldface**	= <b></b>
+regex looking for (**any string **) and replace with (<b> any string </b>)
+r[\*\*\w\*\*]
+
+*emphasis* = <em><\em>
+r[\*\w\*]
+re.sub(r[\*\w\*],'<em>\w</em>')
+
+
+					<ul>
+*list1			= 		<li></li>
+*list_item2				<li></li>
++another item			<li></li>
+-a thing list			<li></li>
+					</ul>
+regex looking for (*/+/- any string '\n' ) and replace with (<li> any string </li>)	
+Add item to a list
+when next line starts with anything other that '*/+/-' thats end of ul
+enclose list with <ul> and </ul>				
+					
+					
+[link text](www.bebsit.com)	= <a href="http://www.bebsit.com">link text</a>
+[link text](../filepath/index.html)	= <a href="../filepath/index.html">link text</a>
+
+regex search for  '(' any string ')' strip brackets and assign to variable url
+regex search for ([ any string ]) replace with <a href="url"> any string </a>
+
+
+Paragraphs
+A paragraph is simply one or more consecutive lines of text, separated by one or more blank lines
+
+= 
+
+<p>
+Paragraphs
+A paragraph is simply one or more consecutive lines of text, separated by one or more blank lines
+</p>
+

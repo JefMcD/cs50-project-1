@@ -1,0 +1,151 @@
+<!------------------------------------------------------
+//
+//  File Operations in Django
+//
+//  Find If a File exists
+//  Open A file
+//  File Modes -  rwa
+//  Create A file
+//  Append data to a File
+//  Find a Position with a file and Insert data
+//  Close A file
+//  Delete a file
+//
+--------------------------------------------------------->
+
+<!-- Recieves form_trigger variable as parameter from views.process_form -->
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>sandbox: File Ops</title>
+    </head>
+    <body>
+        <div >
+            <div>import os</div>
+            <div>The Pthon os module. This module provides a portable way of using operating system dependent functionality
+                <br />https://docs.python.org/3/library/os.html#module-os
+            </div>
+            <br />
+            <div>import os.path
+                <br />https://docs.python.org/3/library/os.path.html#module-os.path
+            </div>
+             <div>The os.path module, is for manipulating paths read or write a file with open() </div>
+            <div>Django has a module called default_storage which has an API that provides a front end to these</div>
+            <br />
+            <div>File Path : -> {{file_path}}</div>
+            <div>default_storage.Current Directory : -> {{current_dir}}</div>
+            
+            <br />
+            <div>DEFAULT STORAGE</div>
+            <div>default_storage environment variables</div>
+            <div>{{message}}</div>
+            <div>settings variable MEDIA_ROOT <b>default_storage.location</b> : -> {{location}}</div>
+            <div>settings variable MEDIA_URL  <b>default_storage.base_url</b> base_url : -> {{base_url}}</div>
+            <br />
+            <div>settings variable FILE_UPLOAD_PERMISSIONS <b>default_storage.file_permissions_mode</b>  : -> {{file_permissions_mode}}</div>
+            <div>settings variable FILE_UPLOAD_DIRECTORY_PERMISSIONS <b>default_storage.directory_permissions_mode</b>  : -> {{dir_permissions_mode}}</div>
+            <br />
+            <div><b>dir_listing, file_listing = default_storage.listdir('.')</b> directory dir_listing : -> {{dir_listing}}</div>
+            <div><b>dir_listing, file_listing = default_storage.listdir('.')</b> files file_listing : -> {{file_listing}}</div>
+
+            <br>
+            <div>File System Operations</div>
+            <br>
+            <div>Check if file exists <b>default_storage.exists('manage.py')</b> : -> {{filecheck}}</div>
+            <br>
+            <div>Django has several methods for pre-generating filnames which seem to do much the same thing.<br>
+                 If the filename already exists it will return a variant which is similar. Other wise it return the name you supplied</div>
+            <div>Suggest a Filename <b>default_storage.get_available_name('newfile.py') -> </b>{{newfilename}}</div>            
+            <div>Suggest a Filename <b>default_storage.get_valid_name('new-valid-file.py') -> </b>{{validfilename}}</div>  
+            <div>Suggest a Filename <b>default_storage.generate_filename('new-generated-file.py') -> </b>{{generatedfilename}}</div>
+            <br>
+            <div>The local filesystem path where the file can be opened using Python’s standard open()</div>
+            <div>Default Storage Path <b>fs_path = default_storage.path('target_file.py') -> </b>{{fs_path}}</div>
+            <br>
+            <h1>File Ops in Python</h1>
+            <h2>import os.path</h2>
+            <br>
+            <div>The Django default_storage API uses python functions from the os.path module.
+                <br> In Django file handling can be done using python directly.
+                <br> Django assumes that you already understand how this all works, so its best to go through how 
+                <br> Python handles files before doing it through the Django default_storage API
+            </div>
+            <h2>Python File System and Environment</h2>
+            <div>os — Miscellaneous operating system interfaces</div>
+            <div>https://docs.python.org/3/library/os.html#module-os</div>
+            <br>
+            <div>Operating System <b>os.name</b> (posix|nt|java) => {{os_name}}</div>
+            <br>
+            <div>Returns the a map of OS Environment variables os.environ => {{os_environ}}</div>
+            <br>
+            <div>Returns the value of an Environment variable os.environ['HOME'] => {{os_environ_home}}</div>
+            <br>
+            <div>Change Dir and List Dir</div>
+            <div>Current directory listing of wiki <b>os.listdir</b> => {{os_curr_dir_list}}</div>
+            <div>Change to sandbox dir <b>os.chdir('sandbox')</b></div>
+
+            <div>Interestingly, os.listdir seems toreturns a link to the directory listing so
+                <br>if you change the directory the value of a variable will also be changed
+                <br>You would need to create a new object and copy the values to make it a permanent value
+            </div>
+            <br>
+            <div>There's a huge number of operating system commands that can be done via the os module  
+                 <br>with all the usuals commands like chdir, remove files, mkdir etc etc
+            </div>
+            <br>
+            <div></div>
+            <h1>Python File Handling</h1>
+            <h2>open, read, write, create, save, delete</h2>
+            <div>https://docs.python.org/3/library/functions.html#open</div>
+            <div>Open an existing file an display its contents</div>
+            <div>open(file, mode='r', buffering=- 1, encoding=None, errors=None, newline=None, closefd=True, opener=None)</div>
+            <br>
+            <div>When dealing with files it makes sense to establish where you are in the file system and where the target filese are (or will be)</div>
+            <div>example demofile = open('sandbox/testfiles/demofile.txt','r')</div>
+            <br>
+            <div>Current dirname <b>current_path = os.path.dirname('.')</b> => {{current_dir}}</div>
+            <br>
+            <div>You can then create target paths for say a directory where you keep files</div>
+            <div><b>files_path = os.path.join(current_path,'sandbox/testfiles/')</b> => {{files_path}}</div>
+            <br>
+            <div><b>os.listdir</b> will list the current directory{{os_curr_dir_list}}</div>
+            <div><b>os.listdir('sandbox')</b> will list the sandbox directory{{new_ls}}</div>
+            <h2>Opening a file for write access</h2>
+            <div>So now we know where we are and where the file is we want to open
+                <br>In Python files are open in 'rt' mode by 'read/text' default
+                <br> In Django files are open in 'rb' mode 'read/binary'
+                <br> To open a file in read/write the mode is 'w+'
+            </div>
+            <br>
+            <div>There are also two modes, binary and text</div>
+            <div>Text 't' is for standard text files and documents. Binary 'b' is for images, executables and audio files</div>
+            <br>
+            <div>Open a text file in read mode => <b>f = open('filename', 'rt')</b></div>
+            <div>Open a text file in write mode => <b>f = open('filename', 'wt')</b></div>
+            <div>Create a new text file and Open it in write mode => <b>f = open('filename', 'xt')</b></div>
+            <div>Open a image file in read mode => <b>f = open('filename', 'rb')</b></div>
+            <br>
+            <div>Demofile contents <b>read_file_contents = f.read</b> => {{read_file_contents}}</div>
+            <br>
+            <div>It seems that a file can be open in only one mode at a time. eg if its open in read you cant write to it and vice versa
+                <br>So you would have to open it and close it for each different type of activity
+                <br> ie open it in 'rt' to display its contents then close it
+                <br> then open it in 'at' to append new conents
+                <br>opening a file containing text in 'w' mode and trying to read it caused the file to lose all its content, so its important to be careful
+
+            </div>
+            <br>
+            <div>Open a file that doesnt exist in 'wt' write/text mode creates the file</div>
+            <div><b>newfile = open('nonexistent.txt', 'wt')</b></div>
+            <div><b>newfile.write('file contents')</b></div>
+            <br>
+            <div></div>
+            <br>
+            <div></div>
+
+
+
+        </div>
+    </body>
+</html>

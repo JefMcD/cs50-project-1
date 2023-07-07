@@ -1,0 +1,18 @@
+<!-- Recieves ***, default_value variable as parameter from views.test_***-->
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>sandbox: test forms</title>
+    </head>
+    <body>
+        <div >
+            {{welcome}}
+            <form action="../planets/" method="POST">
+                {% csrf_token %}
+                {{valid_data}}
+            </form>
+        </div>
+    </body>
+</html>

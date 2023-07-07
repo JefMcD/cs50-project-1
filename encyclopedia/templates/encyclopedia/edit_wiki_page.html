@@ -1,0 +1,30 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Edit Wiki Page: {{wiki_page|safe}}
+{% endblock %}
+
+{% block body %}
+
+    <!-- 
+    """
+        open the corrosponding wiki markdown file
+        read contents
+        populate a textarea
+        save changes when save clicked
+        redirect to new page
+    """
+    -->
+    <div class='wiki_general edit_form'>
+        <h2> Edit Wiki Page</h2>
+        <form name='wiki_edit_form' action = "{% url 'encyclopedia:save_wiki_edit' wiki_page %}" method="POST">
+            {% csrf_token %}
+            {{edit_form|safe}}
+            <div class="form_button">
+                <input type="submit" name = "search-button" value="SAVE">
+            </div>
+        </form>
+    </div>
+    
+
+{% endblock %}

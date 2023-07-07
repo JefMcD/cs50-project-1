@@ -1,0 +1,28 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Wiki Page: {{wiki_page|safe}}
+{% endblock %}
+
+{% block body %}
+
+    <!-- 
+       Form for creating a New Wiki Page
+       Input Box for title
+       Input for Textarea
+       Button to save the form
+    -->
+    <div class='wiki_general'>
+        <h2>{{wiki_page|safe}}</h2>
+    
+        <form id="new_wiki_form_id" name="new_wiki_form" action="{% url 'encyclopedia:create_new_wiki' %}" method="POST"> 
+            {% csrf_token %}   
+            {{create_wiki_form|safe}}
+            <div class="form_button">
+                <input type="submit" class="search-btn" name = "search-button" value="Save">
+            </div>
+        </form>
+    
+    </div>
+
+{% endblock %}

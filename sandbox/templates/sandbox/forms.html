@@ -1,0 +1,23 @@
+<!-- Recieves form_trigger variable as parameter from views.process_form -->
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>sandbox: forms</title>
+    </head>
+    <body>
+        <div >
+            <h1>{{form_trigger}}</h1>
+            <form action="{% url 'render_form' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name = "in_1" placeholder_text="input 1">
+                <button type="submit">Submit</button>
+            
+            </form>
+            <div>
+                You typed {{in_1}}
+            </div>
+            
+        </div>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<!-- Recieves target variable as parameter from views.hit_target.html
+    This is a template to practice;
+
+    1. calling url paths from within template
+    2. calling url path from template with a parameter
+    2. calling redirect from within python view
+    2. calling redirect from within python view with a parameter
+    3. direct render from within a python view
+    4. direct render from within a python view with a parameter
+
+
+
+    Will display dynamic content depending on the path used to call it
+    path will be created dynamically
+
+    ie path('sandbox/target/<str:variable>', views.hit_target, name="hit_target")
+
+-->
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>sandbox: target</title>
+    </head>
+    <body>
+        <div >
+            <h1>Bones Target's</h1>
+            <div>Playing around with URL's and paths</div>
+        </div>
+            Target Chosen -> {{target}}
+        </div>
+
+    </body>
+</html>

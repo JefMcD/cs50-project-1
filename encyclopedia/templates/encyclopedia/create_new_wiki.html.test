@@ -1,0 +1,22 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Wiki Page: {{wiki_page|safe}}
+{% endblock %}
+
+{% block body %}
+
+    <!-- 
+       Form for creating a New Wiki Page
+       Input Box for title
+       Input for Textarea
+       Button to save the form
+    -->
+    <div class="new_wiki_page">
+        <form id="new_wiki_form_id" name="new_wiki_form" action="" method="POST">    
+            {{create_wiki_form|safe}}
+            <input type="submit" value="SAVE">
+        </form>
+    </div>
+
+{% endblock %}

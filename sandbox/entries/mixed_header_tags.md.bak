@@ -1,0 +1,10 @@
+
+#Line1
+###Lin2 with a sentence
+a sentence ##with a single tag
+
+###line 4### with ##two tags## and some extra
+line 5 #with an inline# tag and ###another###
+
+line with some **bold** type
+
